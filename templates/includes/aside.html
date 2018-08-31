@@ -1,0 +1,33 @@
+<aside class="col-md-4 blog-sidebar">
+  <div class="p-3 mb-3 bg-light rounded">
+    <h4 class="font-italic">About</h4>
+    <p class="mb-0">Hello, my name is Gaulthier, I'm 24 years old and I live in Belgium.
+      I am a PhD. Candidat at the University of Liège where I'm currently working on Unikernels. This blog was originally used to write some stuff to avoid learning things that I forgot a few weeks later. Over time, I started writing these drafts more precisely. If you want to bring your knowledge on one of the topics dealt with here, do not hesitate to contact me <span><a href="{% url 'contact'  %}">here</a></span>.</p>
+  </div>
+
+  {% if categories %}
+  <div class="p-3">
+    <h4 class="font-italic">Categories</h4>
+    <ol class="list-unstyled mb-0">
+      {% for category in categories %}
+        <li><a href="?category={{category.name}}">{{category.name}}</a></li>
+      {% endfor%}
+    </ol>
+  </div>
+  {% endif%}
+
+  <div class="p-3">
+    <h4 class="font-italic">Archives</h4>
+    <ol class="list-unstyled mb-0">
+      <li><a href="?date=2018">2018</a></li>
+    </ol>
+  </div>
+
+  <div class="p-3">
+    <h4 class="font-italic">Elsewhere</h4>
+    <ol class="list-unstyled">
+      <li><a href="https://github.com/gaulthiergain">GitHub</a></li>
+      <li><a href="https://be.linkedin.com/in/gaulthier-gain-967221a4">Linkedin</a></li>
+    </ol>
+  </div>
+</aside><!-- /.blog-sidebar -->

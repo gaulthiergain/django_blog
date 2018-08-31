@@ -1,0 +1,30 @@
+<div class="container">
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-9 pt-1">
+        <a class="text-muted" href="#"><a class="blog-header-logo text-dark" href="{% url 'index'  %}">Gaulthier's Blog</a></a>
+      </div>
+      <div class="col-2 d-flex justify-content-end">
+        <div class="custom-search" data-widget-type="raw_html" data-x="4" data-w="3">
+          <form method="GET" role="search" id="express-form" novalidate="">
+            <input required="" name="keyword" placeholder="Search" class="form-control tt-input" id="express-form-typeahead" autocomplete="off" spellcheck="false" dir="auto" type="text">
+            <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+
+      {% if request.user.is_authenticated %}
+      <div class="col-1 d-flex">
+        <a class="text-dark" href="{% url 'article:dashboard'  %}"><i class="fas fa-chalkboard"></i></a>
+        <span>&nbsp</span>
+        <a class="text-dark" href="{% url 'user:logout'  %}"><i class="fas fa-sign-out-alt"></i></i></a>
+      </div>
+      {% else %}
+      <div class="col-1 d-flex">
+         <a class="text-dark" href="{% url 'user:login'  %}"><i class="fas fa-user"></i></a>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+  <br>
+</div>

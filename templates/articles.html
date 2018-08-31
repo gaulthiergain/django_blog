@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<main role="main" class="container">
+  {% if articles %}
+    {% if articles.0.article_image %}
+      <div class="jumbotron p-3 p-md-5 text-white" style="background-image: url('{{ MEDIA_URL }}{{articles.0.article_image.name}}'); background-size: 100% 100%;">
+    {% else %}
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    {% endif %}
+        <div class="col-md-12 px-0">
+          <h1 class="display-4 font-italic">{{articles.0.title}}</h1>
+          {% if articles.0.summary %}
+          <p class="lead my-3">{{articles.0.summary|safe|truncatewords:60}}</p>
+          {% else %}
+          <p class="lead my-3">{{articles.0.content|safe|truncatewords:60}}</p>
+          {% endif %}
+          <p class="lead mb-0"><a href="{% url 'article:detail' articles.0.id %}" class="text-white font-weight-bold">Continue reading...</a></p>
+        </div>
+      </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-md-8 blog-main">
+      {% if articles %}
+        {% for article in articles|slice:"1:" %}
+        <div class="blog-post">
+          <h2 class="blog-post-title">{{article.title}}</h2>
+          <p class="blog-post-meta">{{article.created_date}} by <a href="#">{{article.author.username}}</a></p>
+          {% if article.article_image %}
+            <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt=""></a>
+          {% endif %}
+          {% if article.summary %}
+          <p class="lead">{{article.summary|safe|truncatewords:50}}</p>
+          {% else %}
+          <p class="lead">{{article.content|safe|truncatewords:50}}</p>
+          {% endif %}
+          <p><a href="{% url 'article:detail' article.id %}" class="btn btn-primary">Read more</a></p>
+          <hr>
+        </div>
+          <!-- /.blog-post -->
+        {% endfor %}
+
+      <nav aria-label="articles">
+        <ul class="pagination justify-content-center">
+          {% if articles.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ articles.previous_page_number }}">{{ articles.previous_page_number }}</a></li>
+          {% endif %}
+
+          <li class="page-item active">
+            <span class="page-link">{{ articles.number }}<span class="sr-only">(current)</span></span>
+          </li>
+
+          {% if articles.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ articles.next_page_number }}">{{ articles.next_page_number }}</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ articles.paginator.num_pages }}">&raquo;</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      {% else %}
+      <div class="alert alert-danger">
+        Oups... No article was found!
+      </div>
+      {% endif %}
+    </div>
+    <!-- /.blog-main -->
+    {% include "includes/aside.html" %}
+  </div>
+  <!-- /.row -->
+</main>
+<!-- /.container -->
+
+{% endblock body %}

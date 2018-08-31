@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <form class="card card-body bg-light" method="post">
+      <h3>Contact</h3>
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-block btn-primary">Send</button>
+    </form>
+    <br>
+  </div>
+</div>
+
+{% endblock body %}
